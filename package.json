@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "engines": {
+    "node": "14.x"
+  },
   "scripts": {
     "dev": "node server.js",
     "build": "next build",
@@ -17,6 +20,9 @@
   "bugs": {
     "url": "https://github.com/carbojet/cj-cps/issues"
   },
+  "cacheDirectories": [
+    ".next/cache"
+  ],
   "homepage": "https://github.com/carbojet/cj-cps#readme",
   "dependencies": {
     "@apollo/react-hooks": "^3.1.5",
