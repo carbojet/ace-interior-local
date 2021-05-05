@@ -6,7 +6,6 @@ import {
   Frame,
   Layout,
 } from '@shopify/polaris';
-import firebase  from '../lib/db/Firebase';
 
 
 export default class App extends Component{  
