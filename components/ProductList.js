@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
-import { Card, ResourceList, Stack, Thumbnail,Heading,IndexTable } from '@shopify/polaris';
+import { Card, ResourceList, Stack, Thumbnail,Heading,IndexTable,useIndexResourceState } from '@shopify/polaris';
 
 
 const GET_FIRST_PRODUCTS = gql`
@@ -43,6 +43,7 @@ function ProductList (){
     if (loading) return <div>loading...</div>
     if (error) return <div>{error.message}</div>
     const products = data.products.edges;
+    /*
     const items = []
     products.forEach(product => {
         items.push(
@@ -56,6 +57,7 @@ function ProductList (){
             }
         )
     });
+    */
     const resourceName = {
         singular: 'Product',
         plural: 'Products',
@@ -68,24 +70,24 @@ function ProductList (){
     } = useIndexResourceState(products);
 
     const rowMarkup = products.map(
-        ({id, image, title}, index) => (
+        (product, index) => (
             <IndexTable.Row
-            id={id}
-            key={id}
-            selected={selectedResources.includes(id)}
+            id={product.node.id}
+            key={product.node.id}
+            selected={selectedResources.includes(product.node.id)}
             position={index}
             >
                 <IndexTable.Cell>
                     <Thumbnail 
                         source={
-                            image.src ? image.src :''
+                            product.node.images.edges[0].node.originalSrc ? product.node.images.edges[0].node.originalSrc :''
                         }
                         alt={
-                            image.alt ? image.alt : ''
+                            product.node.images.edges[0].node.altText ? product.onde.images.edges[0].node.altText : ''
                         }
                     />
                 </IndexTable.Cell>
-                <IndexTable.Cell>{title}</IndexTable.Cell>
+                <IndexTable.Cell>{product.node.title}</IndexTable.Cell>
             </IndexTable.Row>
         ),
     );
@@ -106,46 +108,46 @@ function ProductList (){
             >
                 {{rowMarkup}}
             </IndexTable>
-          <ResourceList
-            items={data.products.edges}
-            renderItem={ item => {
-              const product = item.node;
-              const price = product.variants.edges[0].node.price;
-              const media = (
-                  <Thumbnail 
-                      source={
-                          product.images.edges[0] ? product.images.edges[0].node.originalSrc :''
-                      }
-                      alt={
-                          product.images.edges[0] ? product.images.edges[0].node.altText : ''
-                      }
-                  />
-              );
-              return(
-                <ResourceList.Item
-                    id={product.id}
-                    media={media}
-                    url={'product/'+product.id}
-                    accessibilityLabel={`view Details for ${product.title}`}
-                >
-                  <Stack>
-                      <Stack.Item fill>
-                          <Heading>
-                            {product.title}
-                          </Heading>
-                      </Stack.Item>
-                      <Stack.Item>
-                          <p>INR {price}</p>
-                      </Stack.Item>
-                      <Stack.Item>
-                          <p>{ product.totalInventory}</p>
-                      </Stack.Item>
-                  </Stack>
-                </ResourceList.Item>
-              )
-            }}
-          >
-          </ResourceList>
+            <ResourceList
+                items={data.products.edges}
+                renderItem={ item => {
+                    const product = item.node;
+                    const price = product.variants.edges[0].node.price;
+                    const media = (
+                        <Thumbnail 
+                            source={
+                                product.images.edges[0] ? product.images.edges[0].node.originalSrc :''
+                            }
+                            alt={
+                                product.images.edges[0] ? product.images.edges[0].node.altText : ''
+                            }
+                        />
+                    );
+                    return(
+                        <ResourceList.Item
+                            id={product.id}
+                            media={media}
+                            url={'product/'+product.id}
+                            accessibilityLabel={`view Details for ${product.title}`}
+                        >
+                        <Stack>
+                            <Stack.Item fill>
+                                <Heading>
+                                    {product.title}
+                                </Heading>
+                            </Stack.Item>
+                            <Stack.Item>
+                                <p>INR {price}</p>
+                            </Stack.Item>
+                            <Stack.Item>
+                                <p>{ product.totalInventory}</p>
+                            </Stack.Item>
+                        </Stack>
+                        </ResourceList.Item>
+                    )
+                }}
+            >
+            </ResourceList>
         </Card>
     )
 }
