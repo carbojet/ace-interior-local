@@ -44,7 +44,7 @@ function ProductList (){
     if (error) return <div>{error.message}</div>
     const products = data.products.edges;
     products.forEach(element => {
-        console.log(products)
+        console.log(element)
     });
     //console.log('stored products',data.products.edges);    
     return(
