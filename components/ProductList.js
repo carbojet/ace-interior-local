@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
-import { Card, ResourceList, Stack, Thumbnail,Heading,IndexTable,useIndexResourceState } from '@shopify/polaris';
+import { Card, ResourceList, Stack, Thumbnail,Heading } from '@shopify/polaris';
 
 
 const GET_FIRST_PRODUCTS = gql`
@@ -43,71 +43,16 @@ function ProductList (){
     if (loading) return <div>loading...</div>
     if (error) return <div>{error.message}</div>
     const products = data.products.edges;
-    /*
-    const items = []
-    products.forEach(product => {
-        items.push(
-            {
-                id:product.node.id,
-                title:product.node.title,
-                image : {
-                    src: product.images.edges[0].node.originalSrc,
-                    alt:product.images.edges[0].node.altText
-                }
-            }
-        )
-    });
-    */
+
     const resourceName = {
         singular: 'Product',
         plural: 'Products',
     };
-
-    const {
-        selectedResources,
-        allResourcesSelected,
-        handleSelectionChange,
-    } = useIndexResourceState(products);
-
-    const rowMarkup = products.map(
-        (product, index) => (
-            <IndexTable.Row
-            id={product.node.id}
-            key={product.node.id}
-            selected={selectedResources.includes(product.node.id)}
-            position={index}
-            >
-                <IndexTable.Cell>
-                    <Thumbnail 
-                        source={
-                            product.node.images.edges[0].node.originalSrc ? product.node.images.edges[0].node.originalSrc :''
-                        }
-                        alt={
-                            product.node.images.edges[0].node.altText ? product.onde.images.edges[0].node.altText : ''
-                        }
-                    />
-                </IndexTable.Cell>
-                <IndexTable.Cell>{product.node.title}</IndexTable.Cell>
-            </IndexTable.Row>
-        ),
-    );
+    
     //console.log('stored products',data.products.edges);    
     return(
         <Card>
-            <IndexTable
-                resourceName={resourceName}
-                itemCount={Products.length}
-                selectedItemsCount={
-                    allResourcesSelected ? 'All' : selectedResources.length
-                }
-                hasMoreItems
-                headings={[
-                    {title: ''},
-                    {title: 'Title'},
-                ]}
-            >
-                {{rowMarkup}}
-            </IndexTable>
+            
             
         </Card>
     )
