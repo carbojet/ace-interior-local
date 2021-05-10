@@ -3,8 +3,8 @@ import Router from 'next/router';
 import Cookies from 'js-cookie';
 import {
   Page,
-  Frame,
-  Layout,
+  Heading,
+  Card
 } from '@shopify/polaris';
 import ProductList from '../components/ProductList';
 
