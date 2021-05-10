@@ -22,7 +22,7 @@ export default class WrappedApp extends App {
        config: {
         apiKey: API_KEY, 
         shopOrigin: Cookies.get('shopOrigin'),
-        forceRedirect: true
+        forceRedirect: false
        }
     }
   }
