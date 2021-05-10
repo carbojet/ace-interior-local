@@ -31,7 +31,7 @@ export default class WrappedApp extends App {
     return (
       <React.Fragment>
         <Head>
-          <title>Testing app</title>
+          <title>Ace Interiors</title>
           <meta charSet="utf-8" />
         </Head>
           <AppProvider i18n={enTranslations}>
