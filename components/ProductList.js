@@ -108,46 +108,7 @@ function ProductList (){
             >
                 {{rowMarkup}}
             </IndexTable>
-            <ResourceList
-                items={data.products.edges}
-                renderItem={ item => {
-                    const product = item.node;
-                    const price = product.variants.edges[0].node.price;
-                    const media = (
-                        <Thumbnail 
-                            source={
-                                product.images.edges[0] ? product.images.edges[0].node.originalSrc :''
-                            }
-                            alt={
-                                product.images.edges[0] ? product.images.edges[0].node.altText : ''
-                            }
-                        />
-                    );
-                    return(
-                        <ResourceList.Item
-                            id={product.id}
-                            media={media}
-                            url={'product/'+product.id}
-                            accessibilityLabel={`view Details for ${product.title}`}
-                        >
-                        <Stack>
-                            <Stack.Item fill>
-                                <Heading>
-                                    {product.title}
-                                </Heading>
-                            </Stack.Item>
-                            <Stack.Item>
-                                <p>INR {price}</p>
-                            </Stack.Item>
-                            <Stack.Item>
-                                <p>{ product.totalInventory}</p>
-                            </Stack.Item>
-                        </Stack>
-                        </ResourceList.Item>
-                    )
-                }}
-            >
-            </ResourceList>
+            
         </Card>
     )
 }
