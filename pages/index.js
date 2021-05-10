@@ -6,20 +6,22 @@ import {
   Frame,
   Layout,
 } from '@shopify/polaris';
-
+import ProductList from '../components/ProductList';
 
 export default class App extends Component{  
 
-  constructor(props) {
-    super(props)
-  }
+    constructor(props) {
+        super(props)
+    }
 
 
-  render(){
-    return (
-      <Frame>
-             testing...
-      </Frame>
-    );
-  }  
+    render(){
+        return (
+            <Page title={<Heading>Store Products</Heading>} fullWidth>
+              <Card sectioned>
+                  <ProductList />
+              </Card>                  
+            </Page>
+        );
+    }  
 }
