@@ -43,9 +43,16 @@ function ProductList (){
     if (loading) return <div>loading...</div>
     if (error) return <div>{error.message}</div>
     const products = data.products.edges;
-    products.forEach(element => {
-        console.log(element)
+    const items = []
+    products.forEach(product => {
+        items.push(
+            [
+                product.node.id,
+                product.title
+            ]
+        )
     });
+    console.log(items)
     //console.log('stored products',data.products.edges);    
     return(
         <Card>
