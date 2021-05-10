@@ -42,10 +42,11 @@ function ProductList (){
     const {loading, error, data} = useQuery(GET_FIRST_PRODUCTS, { variables: { row: 20 } });
     if (loading) return <div>loading...</div>
     if (error) return <div>{error.message}</div>
-    
+    console.log(data.products.edges)
     //console.log('stored products',data.products.edges);    
     return(
         <Card>
+        
           <ResourceList
             items={data.products.edges}
             renderItem={ item => {
