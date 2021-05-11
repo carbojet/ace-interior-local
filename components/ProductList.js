@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
-import { Card, ResourceList,Stack,Thumbnail,Heading } from '@shopify/polaris';
+import { Card, IndexTable, useIndexResourceState } from '@shopify/polaris';
 
 
 const GET_FIRST_PRODUCTS = gql`
@@ -45,86 +45,7 @@ function ProductList (){
     //console.log('stored products',data.products.edges);    
     return(
         <Card>
-          <div className="Polaris-DataTable--condensed">
-            <div className="Polaris-DataTable Polaris-DataTable--condensed">
-              <div className="Polaris-DataTable__ScrollContainer">
-                <table className="Polaris-DataTable__Table">
-                  <thead>
-                  <tr>
-                    <th className="Polaris-DataTable__Cell Polaris-DataTable__Cell--verticalAlignMiddle Polaris-DataTable__Cell--header"><input type="checkbox" name="check_all" /></th>
-                    <th className="Polaris-DataTable__Cell Polaris-DataTable__Cell--verticalAlignMiddle Polaris-DataTable__Cell--header"></th>
-                    <th className="Polaris-DataTable__Cell Polaris-DataTable__Cell--verticalAlignMiddle Polaris-DataTable__Cell--header">Title</th>
-                    <th className="Polaris-DataTable__Cell Polaris-DataTable__Cell--verticalAlignMiddle Polaris-DataTable__Cell--header">Price</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  {
-                    data.products.edges.map( (item) => {
-                      const product = item.node;
-                      const price = product.variants.edges[0].node.price;
-                      const media = (
-                          <Thumbnail 
-                              source={
-                                  product.images.edges[0] ? product.images.edges[0].node.originalSrc :''
-                              }
-                              alt={
-                                  product.images.edges[0] ? product.images.edges[0].node.altText : ''
-                              }
-                          />
-                      );
-                      return(
-                        <tr className="Polaris-DataTable__TableRow">
-                          <td className="Polaris-DataTable__Cell Polaris-DataTable__Cell--verticalAlignMiddle Polaris-DataTable__Cell--firstColumn"><input type="checkbox" name="check_each" id={product.id} /></td>
-                          <td className="Polaris-DataTable__Cell Polaris-DataTable__Cell--verticalAlignMiddle Polaris-DataTable__Cell">{media}</td>
-                          <td className="Polaris-DataTable__Cell Polaris-DataTable__Cell--verticalAlignMiddle Polaris-DataTable__Cell">{product.title}</td>
-                          <td className="Polaris-DataTable__Cell Polaris-DataTable__Cell--verticalAlignMiddle Polaris-DataTable__Cell">{price}</td>
-                        </tr>
-                      )
-                    })
-                  }
-                    
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-          <ResourceList
-            items={data.products.edges}
-            renderItem={ item => {
-              const product = item.node;
-              const price = product.variants.edges[0].node.price;
-              const media = (
-                  <Thumbnail 
-                      source={
-                          product.images.edges[0] ? product.images.edges[0].node.originalSrc :''
-                      }
-                      alt={
-                          product.images.edges[0] ? product.images.edges[0].node.altText : ''
-                      }
-                  />
-              );
-              return(
-                <ResourceList.Item
-                    id={product.id}
-                    media={media}
-                    url={'product/'+product.id}
-                    accessibilityLabel={`view Details for ${product.title}`}
-                >
-                  <Stack>
-                      <Stack.Item fill>
-                          <Heading>
-                            {product.title}
-                          </Heading>
-                      </Stack.Item>
-                      <Stack.Item>
-                          <p>INR {price}</p>
-                      </Stack.Item>
-                  </Stack>
-                </ResourceList.Item>
-              )
-            }}
-          >
-          </ResourceList>
+          <IndexTable></IndexTable>
         </Card>
     )
     
