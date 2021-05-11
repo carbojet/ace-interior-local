@@ -51,19 +51,38 @@ function ProductList (){
                 <table className="Polaris-DataTable__Table">
                   <thead>
                   <tr>
-                    <th><input type="checkbox" name="check_all" /></th>
+                    <th className="Polaris-DataTable__Cell Polaris-DataTable__Cell--verticalAlignMiddle Polaris-DataTable__Cell--header"><input type="checkbox" name="check_all" /></th>
                     <th className="Polaris-DataTable__Cell Polaris-DataTable__Cell--verticalAlignMiddle Polaris-DataTable__Cell--header"></th>
                     <th className="Polaris-DataTable__Cell Polaris-DataTable__Cell--verticalAlignMiddle Polaris-DataTable__Cell--header">Title</th>
                     <th className="Polaris-DataTable__Cell Polaris-DataTable__Cell--verticalAlignMiddle Polaris-DataTable__Cell--header">Price</th>
                   </tr>
                   </thead>
                   <tbody>
-                    <tr className="Polaris-DataTable__TableRow">
-                      <td className="Polaris-DataTable__Cell Polaris-DataTable__Cell--verticalAlignMiddle Polaris-DataTable__Cell--firstColumn"><input type="checkbox" name="check_each" /></td>
-                      <td className="Polaris-DataTable__Cell Polaris-DataTable__Cell--verticalAlignMiddle Polaris-DataTable__Cell">Image</td>
-                      <td className="Polaris-DataTable__Cell Polaris-DataTable__Cell--verticalAlignMiddle Polaris-DataTable__Cell">Product Title</td>
-                      <td className="Polaris-DataTable__Cell Polaris-DataTable__Cell--verticalAlignMiddle Polaris-DataTable__Cell">Product $1254</td>
-                    </tr>
+                  {
+                    data.products.edges.map( (item) => {
+                      const product = item.node;
+                      const price = product.variants.edges[0].node.price;
+                      const media = (
+                          <Thumbnail 
+                              source={
+                                  product.images.edges[0] ? product.images.edges[0].node.originalSrc :''
+                              }
+                              alt={
+                                  product.images.edges[0] ? product.images.edges[0].node.altText : ''
+                              }
+                          />
+                      );
+                      return(
+                        <tr className="Polaris-DataTable__TableRow">
+                          <td className="Polaris-DataTable__Cell Polaris-DataTable__Cell--verticalAlignMiddle Polaris-DataTable__Cell--firstColumn"><input type="checkbox" name="check_each" id={product.id} /></td>
+                          <td className="Polaris-DataTable__Cell Polaris-DataTable__Cell--verticalAlignMiddle Polaris-DataTable__Cell">{media}</td>
+                          <td className="Polaris-DataTable__Cell Polaris-DataTable__Cell--verticalAlignMiddle Polaris-DataTable__Cell">{product.title}</td>
+                          <td className="Polaris-DataTable__Cell Polaris-DataTable__Cell--verticalAlignMiddle Polaris-DataTable__Cell">{price}</td>
+                        </tr>
+                      )
+                    })
+                  }
+                    
                   </tbody>
                 </table>
               </div>
