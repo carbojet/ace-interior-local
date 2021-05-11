@@ -38,14 +38,59 @@ query getProducts($row:Int!){
 `;
 
 function ProductList (){
- 
+    const resourceName = {
+      singular: 'Product',
+      plural: 'Products',
+    };
+    
     const {loading, error, data} = useQuery(GET_FIRST_PRODUCTS, { variables: { row: 20 } });
     if (loading) return <div>loading...</div>
     if (error) return <div>{error.message}</div>
-    //console.log('stored products',data.products.edges);    
+    //console.log('stored products',data.products.edges);  
+    const {
+      selectedResources,
+      allResourcesSelected,
+      handleSelectionChange,
+    } = useIndexResourceState(data.products.edges);
+
+    const rowMarkup = data.products.edges.map(
+      ({item}, index) => (
+        <IndexTable.Row
+          id={item.node.id}
+          key={item.node.id}
+          selected={selectedResources.includes(item.node.id)}
+          position={index}
+        >
+          <IndexTable.Cell>
+            <Thumbnail 
+                source={
+                    item.node.images.edges[0] ? item.node.images.edges[0].node.originalSrc :''
+                }
+                alt={
+                    item.node.images.edges[0] ? item.node.images.edges[0].node.altText : ''
+                }
+            />
+          </IndexTable.Cell>
+          <IndexTable.Cell>{item.node.title}</IndexTable.Cell>
+          <IndexTable.Cell>{item.node.variants.edges[0].node.price}</IndexTable.Cell>
+        </IndexTable.Row>
+      ),
+    );
     return(
         <Card>
-          <IndexTable>
+          <IndexTable
+            resourceName={resourceName}
+            itemCount={data.products.edges.length}
+            selectedItemsCount={
+              allResourcesSelected ? 'All' : selectedResources.length
+            }
+            onSelectionChange={handleSelectionChange}
+            headings={[
+              {title: 'Image'},
+              {title: 'Title'},
+              {title: 'Price'},
+            ]}  
+          >
           </IndexTable>
         </Card>
     )
