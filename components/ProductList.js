@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
-import { Card, IndexTable, useIndexResourceState } from '@shopify/polaris';
+import { Card,IndexTable,useIndexResourceState } from '@shopify/polaris';
 
 
 const GET_FIRST_PRODUCTS = gql`
@@ -45,7 +45,8 @@ function ProductList (){
     //console.log('stored products',data.products.edges);    
     return(
         <Card>
-          <IndexTable></IndexTable>
+          <IndexTable>
+          </IndexTable>
         </Card>
     )
     
