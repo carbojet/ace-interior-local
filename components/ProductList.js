@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
-import { Card, ResourceList,ResourceItem, Stack, Thumbnail,Heading } from '@shopify/polaris';
+import { Card, ResourceList,Stack,Thumbnail,Heading } from '@shopify/polaris';
 
 
 const GET_FIRST_PRODUCTS = gql`
@@ -45,6 +45,24 @@ function ProductList (){
     //console.log('stored products',data.products.edges);    
     return(
         <Card>
+          <table>
+            <thead>
+            <tr>
+              <th><input type="checkbox" name="check_all" /></th>
+              <th></th>
+              <th>Title</th>
+              <th>Price</th>
+            </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><input type="checkbox" name="check_each" /></td>
+                <td>Image</td>
+                <td>Product Title</td>
+                <td>Product $1254</td>
+              </tr>
+            </tbody>
+          </table>
           <ResourceList
             items={data.products.edges}
             renderItem={ item => {
@@ -75,9 +93,6 @@ function ProductList (){
                       </Stack.Item>
                       <Stack.Item>
                           <p>INR {price}</p>
-                      </Stack.Item>
-                      <Stack.Item>
-                          <p>{ product.totalInventory}</p>
                       </Stack.Item>
                   </Stack>
                 </ResourceList.Item>
