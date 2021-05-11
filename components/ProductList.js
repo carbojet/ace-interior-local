@@ -45,24 +45,30 @@ function ProductList (){
     //console.log('stored products',data.products.edges);    
     return(
         <Card>
-          <table>
-            <thead>
-            <tr>
-              <th><input type="checkbox" name="check_all" /></th>
-              <th></th>
-              <th>Title</th>
-              <th>Price</th>
-            </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><input type="checkbox" name="check_each" /></td>
-                <td>Image</td>
-                <td>Product Title</td>
-                <td>Product $1254</td>
-              </tr>
-            </tbody>
-          </table>
+          <div className="Polaris-DataTable--condensed">
+            <div className="Polaris-DataTable Polaris-DataTable--condensed">
+              <div className="Polaris-DataTable__ScrollContainer">
+                <table className="Polaris-DataTable__Table">
+                  <thead>
+                  <tr>
+                    <th><input type="checkbox" name="check_all" /></th>
+                    <th className="Polaris-DataTable__Cell Polaris-DataTable__Cell--verticalAlignMiddle Polaris-DataTable__Cell--header"></th>
+                    <th className="Polaris-DataTable__Cell Polaris-DataTable__Cell--verticalAlignMiddle Polaris-DataTable__Cell--header">Title</th>
+                    <th className="Polaris-DataTable__Cell Polaris-DataTable__Cell--verticalAlignMiddle Polaris-DataTable__Cell--header">Price</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                    <tr className="Polaris-DataTable__TableRow">
+                      <td className="Polaris-DataTable__Cell Polaris-DataTable__Cell--verticalAlignMiddle Polaris-DataTable__Cell--firstColumn"><input type="checkbox" name="check_each" /></td>
+                      <td className="Polaris-DataTable__Cell Polaris-DataTable__Cell--verticalAlignMiddle Polaris-DataTable__Cell">Image</td>
+                      <td className="Polaris-DataTable__Cell Polaris-DataTable__Cell--verticalAlignMiddle Polaris-DataTable__Cell">Product Title</td>
+                      <td className="Polaris-DataTable__Cell Polaris-DataTable__Cell--verticalAlignMiddle Polaris-DataTable__Cell">Product $1254</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
           <ResourceList
             items={data.products.edges}
             renderItem={ item => {
