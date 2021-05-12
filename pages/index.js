@@ -6,7 +6,6 @@ import {
   Heading,
   Card
 } from '@shopify/polaris';
-import ProductList from '../components/ProductList';
 
 export default class App extends Component{  
 
@@ -19,7 +18,7 @@ export default class App extends Component{
         return (
             <Page title={<Heading>Store Products</Heading>} fullWidth>
               <Card sectioned>
-                  <ProductList />
+                product list
               </Card>                  
             </Page>
         );
