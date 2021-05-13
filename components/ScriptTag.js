@@ -16,7 +16,8 @@ const GET_SCRIPT_TAG = gql `
 `;
 
 function ScriptTag(){
-
+  const [loading,error,data] = useQuery(GET_SCRIPT_TAG);
+  console.log(data)
   return(
     <p>test</p>
   )
