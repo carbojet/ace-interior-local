@@ -1,5 +1,6 @@
 import gql from 'graphql-tag';
 import { useQuery, useMutation } from '@apollo/react-hooks';
+import {useEffect} from 'react';
 
 const GET_SCRIPT_TAG = gql `
   query{
