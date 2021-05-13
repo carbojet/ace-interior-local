@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 import { useQuery, useMutation } from '@apollo/react-hooks';
-import {useEffect,useState} from 'react';
+import {useEffect,useState,useCallback} from 'react';
 
 const GET_SCRIPT_TAG = gql `
   query{
@@ -33,7 +33,8 @@ mutation scriptTagCreate($input : ScriptTagInput!){
 function ScriptTag(){
   const [data,dataSet] = useState(null)
   const [createScript] = useMutation(CREATE_SCRIPT_TAG);
-  const createnewScript = createScriptTag( async ()=> {
+
+  const createnewScript = useCallback( async ()=> {
     const {loading,error,data} = await useQuery(GET_SCRIPT_TAG);
     if(!loading){
       if(data.scriptTags.edges.length<=0){
