@@ -17,7 +17,13 @@ const GET_SCRIPT_TAG = gql `
 
 function ScriptTag(){
   const {loading,error,data} = useQuery(GET_SCRIPT_TAG);
-  console.log(data)
+  if(!loading){
+    console.log(data)
+    if(data.scriptTag.edges.length<=0){
+      console.log('no script yet')
+    }
+  }
+  
   return(
     <p>test</p>
   )
