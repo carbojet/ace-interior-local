@@ -48,7 +48,7 @@ function ScriptTag(){
         });
       }
     }
-  }, [scriptData]);
+  }, [result]);
 }
 
 export default ScriptTag;
