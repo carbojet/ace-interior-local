@@ -8,9 +8,9 @@ const session = require('koa-session');
 
 /*
 const KoaRouter = require('koa-router');
-
 const axios = require('axios');
 */
+
 dotenv.config();
 const { default: graphQLProxy } = require('@shopify/koa-shopify-graphql-proxy');
 const { ApiVersion } = require('@shopify/koa-shopify-graphql-proxy');
