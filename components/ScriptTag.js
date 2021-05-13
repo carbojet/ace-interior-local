@@ -35,7 +35,7 @@ function ScriptTag(){
   return(
   <p onLoad={() => {
     if(data.scriptTags.edges.length<=0 && !loading){
-      createScript({ variables:{ input: {src:'ace-form',displayScope:"All"} } });
+      createScript({ variables:{ input: {src:'ace-form',displayScope:"ALL"} } });
     }
   }}>
 
