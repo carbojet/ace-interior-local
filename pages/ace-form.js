@@ -1,3 +1,19 @@
+import gql from 'graphql-tag';
+import { useQuery,useMutation } from '@apollo/react-hooks';
+
+const CREATE_SCRIPT_TAG = gql`
+    mutaion scriptTagCreate($input: ScriptTagInput!){
+        scriptTagCreate(input:$input){
+            scriptTag{
+                id
+            }
+            userError{
+                field
+                message
+            }
+        }
+    }
+`;
 function AceForm(){
     return(
         <div>

@@ -44,10 +44,10 @@ app.prepare().then(() => {
     createShopifyAuth({
       apiKey: SHOPIFY_API_KEY,
       secret: SHOPIFY_API_SECRET_KEY,
-      scopes: ['read_products','write_products','read_script_tags','write_script_tags'],
+      scopes: ['read_products','write_products','read_script_tags','write_script_tags','read_themes','write_themes'],
       embedded:false,
       afterAuth(ctx) {
-        const { shop, accessToken } = ctx.session;
+        const { shop, accessToken,scope } = ctx.session;
         //console.log('We did it!', accessToken);
         ctx.cookies.set('shopOrigin', shop, { httpOnly:false, secure: true, sameSite:'none' });
         //ctx.cookies.set('shopAccessToken', accessToken, { httpOnly:false, secure: true, sameSite:'none' });

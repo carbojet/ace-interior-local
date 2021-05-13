@@ -22,7 +22,7 @@ export default class WrappedApp extends App {
             config: {
                 apiKey: API_KEY, 
                 shopOrigin: Cookies.get('shopOrigin'),
-                forceRedirect: false
+                forceRedirect: true
             }
         }
     }
@@ -35,9 +35,17 @@ export default class WrappedApp extends App {
               <meta charSet="utf-8" />
             </Head>
               <AppProvider i18n={enTranslations}>
+                <Provider
+                  config={{
+                    apiKey=API_KEY,
+                    shopOrigin:shopOrigin,
+                    forceRedirect: true
+                  }}
+                >
                 <ApolloProvider client={client}>
                   <Component {...pageProps} />
                 </ApolloProvider>
+                </Provider>
               </AppProvider>
           </React.Fragment>
       );
