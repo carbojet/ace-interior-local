@@ -32,12 +32,13 @@ mutation scriptTagCreate($input : ScriptTagInput!){
 function ScriptTag(){
   const [createScript] = useMutation(CREATE_SCRIPT_TAG);
   const {loading,error,data} = useQuery(GET_SCRIPT_TAG);
-  if(!loading){
-    console.log(data);
-    if(data.scriptTags.edges.length<=0){
+  return(
+  <p onLoad={() => {
+    if(data.scriptTags.edges.length<=0 && !loading){
       createScript({ variables:{ input: {src:'ace-form',displayScope:"All"} } });
     }
-  }  
-  return(<></>)
+  }}>
+
+  </p>)
 }
 export default ScriptTag;
