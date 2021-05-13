@@ -7,7 +7,8 @@ import {
   Card
 } from '@shopify/polaris';
 
-import ScriptTag from '../components/ScriptTag';
+//import ScriptTag from '../components/ScriptTag';
+import ProductList from '../components/ProductList';
 
 export default class App extends Component{  
 
@@ -21,7 +22,7 @@ export default class App extends Component{
             <Page title={<Heading>Store Products</Heading>} fullWidth>
               <Card sectioned>
                 product list
-                <ScriptTag/>
+                <ProductList/>
               </Card>                  
             </Page>
         );
