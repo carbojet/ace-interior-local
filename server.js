@@ -6,8 +6,9 @@ const dotenv = require('dotenv');
 const { verifyRequest } = require('@shopify/koa-shopify-auth');
 const session = require('koa-session');
 
-/*
+
 const KoaRouter = require('koa-router');
+/*
 const axios = require('axios');
 */
 dotenv.config();
@@ -57,11 +58,11 @@ app.prepare().then(() => {
   );
   server.use(graphQLProxy({ version: ApiVersion.Unstable}));
   server.use(verifyRequest());
-/*
+
   //Route Middleware
-  server.use(router.allowMethods());
-  server.use(router.routes());
-*/
+  server.use(KoaRouter.allowMethods());
+  server.use(KoaRouter.routes());
+
 
   server.use(async (ctx) => {
     await handle(ctx.req, ctx.res);
