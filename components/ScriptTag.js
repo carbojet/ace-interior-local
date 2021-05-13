@@ -5,6 +5,9 @@ import { useQuery, useMutation } from '@apollo/react-hooks';
 export default class ScriptTag extends Component{
   constructor(props) {
       super(props)
+      this.state = {
+        scriptTags:{}
+      }
       const GET_SCRIPT_TAG = gql `
         query{
           scriptTags(first:5){
@@ -37,7 +40,7 @@ export default class ScriptTag extends Component{
       const {loading,error,data} = await useQuery(GET_SCRIPT_TAG);
       if(!loading){
         if(data.scriptTags.edges.length<=0){
-          const scriptTags = await useMutation(CREATE_SCRIPT_TAG,{
+          const result = await useMutation(CREATE_SCRIPT_TAG,{
             variables : {
               input : {
                 src:'ace-form',
@@ -46,11 +49,15 @@ export default class ScriptTag extends Component{
             },
             refetchQueries:[{query:GET_SCRIPT_TAG}]
           })
+          this.setState({scriptTags:result})
         }
       }
     }catch(error){
       console.log(error)
     }
+  }
+  componentDidMount(){
+    this.handleScriptTagOnload()
   }
   render(){
     return(
