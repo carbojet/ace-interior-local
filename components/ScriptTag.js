@@ -33,12 +33,11 @@ mutation scriptTagCreate($input : ScriptTagInput!){
 function ScriptTag(){
   const [data,dataSet] = useState(null)
   const [createScript] = useMutation(CREATE_SCRIPT_TAG);
-  const createScript = createScriptTag( async ()=> {
-    const result = await {}
+  const createnewScript = createScriptTag( async ()=> {
     const {loading,error,data} = await useQuery(GET_SCRIPT_TAG);
     if(!loading){
       if(data.scriptTags.edges.length<=0){
-        const result = await createScript({
+        const result = await createnewScript({
           variables:{ 
               input: {
                 src:'ace-form',
@@ -49,12 +48,12 @@ function ScriptTag(){
         dataSet(result)
       }
     }
-  },[result])
+  })
   useEffect(() => {
-    createScript()
-  }, [createScript]);
+    createnewScript()
+  }, [createnewScript]);
   return(
-    <p onLoad={createScript}>{JSON.stringify(data)}</p>
+    <p onLoad={createnewScript}>{JSON.stringify(data)}</p>
   )
 }
 
