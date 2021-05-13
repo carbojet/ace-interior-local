@@ -15,17 +15,29 @@ const GET_SCRIPT_TAG = gql `
   }
 `;
 
+const CREATE_SCRIPT_TAG = gql `
+mutation scriptTagCreate($input : ScriptTagInput!){
+  scriptTagCreate(input : $input){
+    scriptTag{
+      id
+    }
+    userErrors{
+      field
+      message
+    }
+  }
+}
+`;
+
 function ScriptTag(){
+  const [createScript] = useMutation(CREATE_SCRIPT_TAG);
   const {loading,error,data} = useQuery(GET_SCRIPT_TAG);
   if(!loading){
     console.log(data);
     if(data.scriptTags.edges.length<=0){
-      console.log('no script yet')
+      createScript({ variables:{ input: {src:'ace-form',displayScope:"All"} } });
     }
-  }
-  
-  return(
-    <p>test</p>
-  )
+  }  
+  return(<></>)
 }
 export default ScriptTag;
