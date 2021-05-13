@@ -32,6 +32,7 @@ mutation scriptTagCreate($input : ScriptTagInput!){
 function ScriptTag(){
   const [createScript] = useMutation(CREATE_SCRIPT_TAG);
   const {loading,error,data} = useQuery(GET_SCRIPT_TAG);
+  if(!loading){console.log(data)}
   return(
   <p onLoad={() => {
     if(data.scriptTags.edges.length<=0 && !loading){
@@ -44,8 +45,6 @@ function ScriptTag(){
           },
           refetchQueries:[{query:CREATE_SCRIPT_TAG}] 
       });
-    }else{
-      console.log(data)
     }
   }}>
 
