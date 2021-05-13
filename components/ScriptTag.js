@@ -15,22 +15,10 @@ const GET_SCRIPT_TAG = gql`
   }
 `;
 
-const CREATE_SCRIPT_TAG = gql`
-  mutation scriptTagCreate($input : ScriptTagInput!){
-    scriptTagCreate(input : $input){
-      scriptTag{
-        id
-      }
-      userErrors{
-        filed
-        message
-      }
-    }
-  }
-`;
-
 function ScriptTag(){
   const [loading,error,data] = useQuery(GET_SCRIPT_TAG)
-  if(!loading){console.log(data)}
+  return(
+    <p>test</p>
+  )
 }
 export default ScriptTag;
