@@ -6,7 +6,7 @@ import {
   Heading,
   Card
 } from '@shopify/polaris';
-
+import ScriptTag from '../components/ScriptTag';
 export default class App extends Component{  
 
     constructor(props) {
@@ -18,6 +18,7 @@ export default class App extends Component{
         return (
             <Page title={<Heading>Store Products</Heading>} fullWidth>
               <Card sectioned>
+                <ScriptTag />
                 product list
               </Card>                  
             </Page>

@@ -31,8 +31,6 @@ const CREATE_SCRIPT_TAG = gql`
 
 function ScriptTag(){
   const [loading,error,data] = useQuery(GET_SCRIPT_TAG)
-  if(!loading){
-    console.log(data)
-  }
+  if(!loading){console.log(data)}
 }
 export default ScriptTag;
