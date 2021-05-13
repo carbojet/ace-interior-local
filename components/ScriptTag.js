@@ -33,10 +33,11 @@ mutation scriptTagCreate($input : ScriptTagInput!){
 function ScriptTag(){
   const [createScript] = useMutation(CREATE_SCRIPT_TAG);
   useEffect(() => {
-    const {loading,error,data} = useQuery(GET_SCRIPT_TAG);
-    if(!loading){
-      console.log(data)
-      if(data.scriptTags.edges.length<=0){
+    const result = useQuery(GET_SCRIPT_TAG);
+    if(!result.loading){
+      const scriptData = result.data; 
+      console.log(scriptData)
+      if(scriptData.scriptTags.edges.length<=0){
         createScript({
           variables:{ 
               input: {
@@ -47,7 +48,7 @@ function ScriptTag(){
         });
       }
     }
-  }, [data]);
+  }, [scriptData]);
 }
 
 export default ScriptTag;
