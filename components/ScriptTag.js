@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 import { useQuery, useMutation } from '@apollo/react-hooks';
-import {useEffect} from 'react';
+import {useEffect,useState} from 'react';
 
 const GET_SCRIPT_TAG = gql `
   query{
@@ -31,14 +31,14 @@ mutation scriptTagCreate($input : ScriptTagInput!){
 `;
 
 function ScriptTag(){
+  const [data,dataSet] = useState(null)
   const [createScript] = useMutation(CREATE_SCRIPT_TAG);
-  useEffect(() => {
-    const result = useQuery(GET_SCRIPT_TAG);
-    if(!result.loading){
-      const scriptData = result.data; 
-      console.log(scriptData)
-      if(scriptData.scriptTags.edges.length<=0){
-        createScript({
+  const createScript = createScriptTag( async ()=> {
+    const result = await {}
+    const {loading,error,data} = await useQuery(GET_SCRIPT_TAG);
+    if(!loading){
+      if(data.scriptTags.edges.length<=0){
+        const result = await createScript({
           variables:{ 
               input: {
                 src:'ace-form',
@@ -46,9 +46,16 @@ function ScriptTag(){
               }
             }
         });
+        dataSet(result)
       }
     }
-  }, [result]);
+  },[result])
+  useEffect(() => {
+    createScript()
+  }, [createScript]);
+  return(
+    <p onLoad={createScript}>{JSON.stringify(data)}</p>
+  )
 }
 
 export default ScriptTag;
