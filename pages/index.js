@@ -10,12 +10,11 @@ import {
 import ScriptTag from '../components/ScriptTag';
 import ProductList from '../components/ProductList';
 
-export default class App extends Component{  
+export default class App extends Component{ 
 
     constructor(props) {
         super(props)
     }
-
 
     render(){
         return (
@@ -23,7 +22,6 @@ export default class App extends Component{
               <Card sectioned>
                 <ScriptTag />
                 <ProductList/>
-
               </Card>                  
             </Page>
         );

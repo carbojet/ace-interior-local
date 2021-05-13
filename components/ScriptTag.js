@@ -1,7 +1,66 @@
+import React,{Component} from 'react';
 import gql from 'graphql-tag';
 import { useQuery, useMutation } from '@apollo/react-hooks';
-import {useEffect,useState,useCallback} from 'react';
 
+export default class ScriptTag extends Component{
+  constructor(props) {
+      super(props)
+      const GET_SCRIPT_TAG = gql `
+        query{
+          scriptTags(first:5){
+            edges{
+              node{
+                id
+                src
+                displayScope
+              }
+            }
+          }
+        }
+      `;
+      const CREATE_SCRIPT_TAG = gql `
+        mutation scriptTagCreate($input : ScriptTagInput!){
+          scriptTagCreate(input : $input){
+            scriptTag{
+              id
+            }
+            userErrors{
+              field
+              message
+            }
+          }
+        }
+        `;
+  }
+  handleScriptTagOnload = async (_event) => {
+    try{
+      const {loading,error,data} = await useQuery(GET_SCRIPT_TAG);
+      if(!loading){
+        if(data.scriptTags.edges.length<=0){
+          const scriptTags = await useMutation(CREATE_SCRIPT_TAG,{
+            variables : {
+              input : {
+                src:'ace-form',
+                displayScope:"ALL"
+              }
+            },
+            refetchQueries:[{query:GET_SCRIPT_TAG}]
+          })
+        }
+      }
+    }catch(error){
+      console.log(error)
+    }
+  }
+  render(){
+    return(
+      <p>testing...</p>
+    )
+  }
+  
+}
+
+/*
 const GET_SCRIPT_TAG = gql `
   query{
     scriptTags(first:5){
@@ -30,8 +89,8 @@ mutation scriptTagCreate($input : ScriptTagInput!){
 }
 `;
 
-function ScriptTag(){
-  const [data,dataSet] = useState(null)
+
+function ScriptTag (){
   const [createScript] = useMutation(CREATE_SCRIPT_TAG);
 
   const createnewScript = useCallback( async ()=> {
@@ -50,12 +109,10 @@ function ScriptTag(){
       }
     }
   })
-  useEffect(() => {
-    createnewScript()
-  }, [createnewScript]);
   return(
     <p onLoad={createnewScript}>{JSON.stringify(data)}</p>
   )
 }
 
 export default ScriptTag;
+*/
