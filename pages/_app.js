@@ -38,7 +38,7 @@ export default class WrappedApp extends App {
                 <Provider
                   config={{
                     apiKey:API_KEY,
-                    shopOrigin:shopOrigin,
+                    shopOrigin:Cookies.get('shopOrigin'),
                     forceRedirect: true
                   }}
                 >
