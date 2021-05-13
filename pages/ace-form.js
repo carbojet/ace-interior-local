@@ -2,7 +2,7 @@ import gql from 'graphql-tag';
 import { useQuery,useMutation } from '@apollo/react-hooks';
 
 const CREATE_SCRIPT_TAG = gql`
-    mutaion scriptTagCreate($input: ScriptTagInput!){
+    mutation scriptTagCreate($input: ScriptTagInput!){
         scriptTagCreate(input:$input){
             scriptTag{
                 id
