@@ -2,7 +2,7 @@ import React from 'react';
 import App from 'next/app';
 import Head from 'next/head';
 import {AppProvider} from '@shopify/polaris';
-import { Provider } from '@shopify/app-bridge-react';
+import { Provider,useAppBridge } from '@shopify/app-bridge-react';
 import enTranslations from '@shopify/polaris/locales/en.json';
 import Cookies from 'js-cookie';
 import ApolloClient from 'apollo-boost';
@@ -37,7 +37,7 @@ export default class WrappedApp extends App {
               <AppProvider i18n={enTranslations}>
                 <Provider
                   config={{
-                    apiKey=API_KEY,
+                    apiKey:API_KEY,
                     shopOrigin:shopOrigin,
                     forceRedirect: true
                   }}
