@@ -44,6 +44,8 @@ function ScriptTag(){
           },
           refetchQueries:[{query:CREATE_SCRIPT_TAG}] 
       });
+    }else{
+      console.log(data)
     }
   }}>
 
