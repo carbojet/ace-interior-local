@@ -37,7 +37,7 @@ function ScriptTag(){
     const {loading,error,data} = await useQuery(GET_SCRIPT_TAG);
     if(!loading){
       if(data.scriptTags.edges.length<=0){
-        const result = await createnewScript({
+        const result = await createScript({
           variables:{ 
               input: {
                 src:'ace-form',
