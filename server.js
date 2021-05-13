@@ -14,6 +14,7 @@ const axios = require('axios');
 dotenv.config();
 const { default: graphQLProxy } = require('@shopify/koa-shopify-graphql-proxy');
 const { ApiVersion } = require('@shopify/koa-shopify-graphql-proxy');
+const { handleRouteChange } = require('@shopify/app-bridge-react/components/ClientRouter/router');
 
 const port = parseInt(process.env.PORT, 10) || 3000;
 //const port = process.env.PORT || 3000;
@@ -59,6 +60,8 @@ app.prepare().then(() => {
   server.use(graphQLProxy({ version: ApiVersion.Unstable}));
   server.use(verifyRequest());
 
+
+  KoaRouter.get("(.*)",verifyRequest(),handleRouteChange)
   //Route Middleware
   server.use(KoaRouter.allowMethods());
   server.use(KoaRouter.routes());
