@@ -61,7 +61,7 @@ export default class ScriptTag extends Component{
   }
   render(){
     return(
-      <p>testing...{console.log('testing')}</p>
+      <p>testing...{console.log(this.state.getScriptTags)}</p>
     )
   }
   
