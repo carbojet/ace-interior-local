@@ -8,19 +8,7 @@ export default class ScriptTag extends Component{
       this.state = {
         getScriptTags:{}
       }
-      const GET_SCRIPT_TAG = gql `
-        query{
-          scriptTags(first:5){
-            edges{
-              node{
-                id
-                src
-                displayScope
-              }
-            }
-          }
-        }
-      `;
+      
       const CREATE_SCRIPT_TAG = gql `
         mutation scriptTagCreate($input : ScriptTagInput!){
           scriptTagCreate(input : $input){
@@ -37,8 +25,25 @@ export default class ScriptTag extends Component{
   }
   handleScriptTagOnload = async (_event) => {
     try{
-      const {loading,error,data} = await useQuery(this.GET_SCRIPT_TAG);
+
+      const {loading,error,data} = await useQuery(
+        gql `
+          query{
+            scriptTags(first:5){
+              edges{
+                node{
+                  id
+                  src
+                  displayScope
+                }
+              }
+            }
+          }
+        `
+      );
+      
       if(!loading){
+        /*
         if(data.scriptTags.edges.length<=0){
           const result = await useMutation(this.CREATE_SCRIPT_TAG,{
             variables : {
@@ -51,7 +56,11 @@ export default class ScriptTag extends Component{
           })
           this.setState({getScriptTags:result})
         }
+        */
+       this.setState({getScriptTags:data})
       }
+      
+     
     }catch(error){
       console.log(error)
     }
