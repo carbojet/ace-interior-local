@@ -37,10 +37,10 @@ export default class ScriptTag extends Component{
   }
   handleScriptTagOnload = async (_event) => {
     try{
-      const {loading,error,data} = await useQuery(GET_SCRIPT_TAG);
+      const {loading,error,data} = await useQuery(this.GET_SCRIPT_TAG);
       if(!loading){
         if(data.scriptTags.edges.length<=0){
-          const result = await useMutation(CREATE_SCRIPT_TAG,{
+          const result = await useMutation(this.CREATE_SCRIPT_TAG,{
             variables : {
               input : {
                 src:'ace-form',
