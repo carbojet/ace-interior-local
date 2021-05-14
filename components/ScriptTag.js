@@ -6,7 +6,7 @@ export default class ScriptTag extends Component{
   constructor(props) {
       super(props)
       this.state = {
-        scriptTags:{}
+        getScriptTags:{}
       }
       const GET_SCRIPT_TAG = gql `
         query{
@@ -49,7 +49,7 @@ export default class ScriptTag extends Component{
             },
             refetchQueries:[{query:GET_SCRIPT_TAG}]
           })
-          this.setState({scriptTags:result})
+          this.setState({getScriptTags:result})
         }
       }
     }catch(error){
@@ -61,7 +61,7 @@ export default class ScriptTag extends Component{
   }
   render(){
     return(
-      <p>testing...</p>
+      <p>testing...{this.state.getScriptTags}</p>
     )
   }
   
