@@ -1,9 +1,11 @@
-import { Heading, Page } from "@shopify/polaris";
+import React,{Component} from 'react';
 
-const Index = () => (
-  <Page>
-    <Heading>Heroku Shopify app with Node and React 🎉</Heading>
-  </Page>
-);
-
-export default Index;
+export default class Index extends Component{
+  render(){
+    return (
+      <div>
+        <p>Sample app using React and Next.js</p>
+      </div>
+    )
+  }
+}
